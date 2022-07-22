@@ -12,15 +12,23 @@ exports.default = void 0;
 
 var _react = babelHelpers.interopRequireDefault(require("react"));
 
-var formlib = babelHelpers.interopRequireWildcard(require("../js/lib/forms"));
-var jqLite = babelHelpers.interopRequireWildcard(require("../js/lib/jqLite"));
-var util = babelHelpers.interopRequireWildcard(require("../js/lib/util"));
+var formlib = _interopRequireWildcard(require("../js/lib/forms"));
+
+var jqLite = _interopRequireWildcard(require("../js/lib/jqLite"));
+
+var util = _interopRequireWildcard(require("../js/lib/util"));
 
 var _helpers = require("./_helpers");
 
+var _excluded = ["children", "className", "style", "label", "defaultValue", "readOnly", "disabled", "useDefault", "name", "placeholder"];
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || babelHelpers.typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = babelHelpers.getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = babelHelpers.getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return babelHelpers.possibleConstructorReturn(this, result); }; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 /**
  * Select constructor
@@ -204,7 +212,7 @@ var Select = /*#__PURE__*/function (_React$Component) {
           useDefault = _this$props.useDefault,
           name = _this$props.name,
           placeholder = _this$props.placeholder,
-          reactProps = babelHelpers.objectWithoutProperties(_this$props, ["children", "className", "style", "label", "defaultValue", "readOnly", "disabled", "useDefault", "name", "placeholder"]); // build value arguments
+          reactProps = babelHelpers.objectWithoutProperties(_this$props, _excluded); // build value arguments
 
       if (this.props.value !== undefined) valueArgs.value = value; // controlled
 
@@ -299,8 +307,8 @@ var Menu = /*#__PURE__*/function (_React$Component2) {
   }
 
   babelHelpers.createClass(Menu, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
+    key: "UNSAFE_componentWillMount",
+    value: function UNSAFE_componentWillMount() {
       var optionEls = this.availOptionEls,
           m = optionEls.length,
           selectedPos = null,

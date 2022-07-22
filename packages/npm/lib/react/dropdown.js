@@ -19,12 +19,19 @@ var _button = babelHelpers.interopRequireDefault(require("./button"));
 
 var _caret = babelHelpers.interopRequireDefault(require("./caret"));
 
-var jqLite = babelHelpers.interopRequireWildcard(require("../js/lib/jqLite"));
-var util = babelHelpers.interopRequireWildcard(require("../js/lib/util"));
+var jqLite = _interopRequireWildcard(require("../js/lib/jqLite"));
+
+var util = _interopRequireWildcard(require("../js/lib/util"));
+
+var _excluded = ["children", "className", "color", "variant", "size", "label", "placement", "alignment", "alignMenu", "onClick", "onSelect", "disabled"];
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || babelHelpers.typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = babelHelpers.getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = babelHelpers.getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return babelHelpers.possibleConstructorReturn(this, result); }; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 var dropdownClass = 'mui-dropdown',
     menuClass = 'mui-dropdown__menu',
@@ -193,7 +200,7 @@ var Dropdown = /*#__PURE__*/function (_React$Component) {
           onClick = _this$props.onClick,
           onSelect = _this$props.onSelect,
           disabled = _this$props.disabled,
-          reactProps = babelHelpers.objectWithoutProperties(_this$props, ["children", "className", "color", "variant", "size", "label", "placement", "alignment", "alignMenu", "onClick", "onSelect", "disabled"]); // build label
+          reactProps = babelHelpers.objectWithoutProperties(_this$props, _excluded); // build label
 
       if (jqLite.type(label) === 'string') {
         if (placement === 'left') {

@@ -14,23 +14,30 @@ var _react = babelHelpers.interopRequireDefault(require("react"));
 
 var _reactAddonsShallowCompare = babelHelpers.interopRequireDefault(require("react-addons-shallow-compare"));
 
-var jqLite = babelHelpers.interopRequireWildcard(require("../js/lib/jqLite"));
-var util = babelHelpers.interopRequireWildcard(require("../js/lib/util"));
+var jqLite = _interopRequireWildcard(require("../js/lib/jqLite"));
+
+var util = _interopRequireWildcard(require("../js/lib/util"));
 
 var _helpers = require("./_helpers");
 
+var _excluded = ["children", "className", "style", "hint", "invalid", "label", "floatingLabel"];
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || babelHelpers.typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = babelHelpers.getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = babelHelpers.getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return babelHelpers.possibleConstructorReturn(this, result); }; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 /**
  * Textfield Wrapper
  * @function
  */
 var textfieldWrapper = function textfieldWrapper(TextfieldComponent) {
-  var _class, _temp;
+  var _class;
 
-  return _temp = _class = /*#__PURE__*/function (_React$Component) {
+  return _class = /*#__PURE__*/function (_React$Component) {
     babelHelpers.inherits(_class, _React$Component);
 
     var _super = _createSuper(_class);
@@ -129,7 +136,7 @@ var textfieldWrapper = function textfieldWrapper(TextfieldComponent) {
             invalid = _this$props.invalid,
             label = _this$props.label,
             floatingLabel = _this$props.floatingLabel,
-            other = babelHelpers.objectWithoutProperties(_this$props, ["children", "className", "style", "hint", "invalid", "label", "floatingLabel"]);
+            other = babelHelpers.objectWithoutProperties(_this$props, _excluded);
         var labelType = jqLite.type(label);
 
         if (labelType == 'string' && label.length || labelType == 'object') {
@@ -173,7 +180,7 @@ var textfieldWrapper = function textfieldWrapper(TextfieldComponent) {
     invalid: false,
     label: null,
     floatingLabel: false
-  }), _temp;
+  }), _class;
 };
 /**
  * Label constructor

@@ -30,6 +30,9 @@
   function _createClass(Constructor, protoProps, staticProps) {
     if (protoProps) _defineProperties(Constructor.prototype, protoProps);
     if (staticProps) _defineProperties(Constructor, staticProps);
+    Object.defineProperty(Constructor, "prototype", {
+      writable: false
+    });
     return Constructor;
   }
 
@@ -53,7 +56,7 @@
   babelHelpers.defineProperty = _defineProperty;
 
   function _extends() {
-    babelHelpers.extends = _extends = Object.assign || function (target) {
+    babelHelpers.extends = _extends = Object.assign ? Object.assign.bind() : function (target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
 
@@ -66,7 +69,6 @@
 
       return target;
     };
-
     return _extends.apply(this, arguments);
   }
 
@@ -84,13 +86,16 @@
         configurable: true
       }
     });
+    Object.defineProperty(subClass, "prototype", {
+      writable: false
+    });
     if (superClass) babelHelpers.setPrototypeOf(subClass, superClass);
   }
 
   babelHelpers.inherits = _inherits;
 
   function _getPrototypeOf(o) {
-    babelHelpers.getPrototypeOf = _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    babelHelpers.getPrototypeOf = _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) {
       return o.__proto__ || Object.getPrototypeOf(o);
     };
     return _getPrototypeOf(o);
@@ -99,11 +104,10 @@
   babelHelpers.getPrototypeOf = _getPrototypeOf;
 
   function _setPrototypeOf(o, p) {
-    babelHelpers.setPrototypeOf = _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    babelHelpers.setPrototypeOf = _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
       o.__proto__ = p;
       return o;
     };
-
     return _setPrototypeOf(o, p);
   }
 
@@ -117,19 +121,17 @@
 
   babelHelpers.interopRequireDefault = _interopRequireDefault;
 
-  function _getRequireWildcardCache() {
+  function _getRequireWildcardCache(nodeInterop) {
     if (typeof WeakMap !== "function") return null;
-    var cache = new WeakMap();
-
-    _getRequireWildcardCache = function () {
-      return cache;
-    };
-
-    return cache;
+    var cacheBabelInterop = new WeakMap();
+    var cacheNodeInterop = new WeakMap();
+    return (_getRequireWildcardCache = function (nodeInterop) {
+      return nodeInterop ? cacheNodeInterop : cacheBabelInterop;
+    })(nodeInterop);
   }
 
-  function _interopRequireWildcard(obj) {
-    if (obj && obj.__esModule) {
+  function _interopRequireWildcard(obj, nodeInterop) {
+    if (!nodeInterop && obj && obj.__esModule) {
       return obj;
     }
 
@@ -139,7 +141,7 @@
       };
     }
 
-    var cache = _getRequireWildcardCache();
+    var cache = _getRequireWildcardCache(nodeInterop);
 
     if (cache && cache.has(obj)) {
       return cache.get(obj);
@@ -149,7 +151,7 @@
     var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;
 
     for (var key in obj) {
-      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) {
         var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;
 
         if (desc && (desc.get || desc.set)) {
@@ -222,6 +224,8 @@
   function _possibleConstructorReturn(self, call) {
     if (call && (typeof call === "object" || typeof call === "function")) {
       return call;
+    } else if (call !== void 0) {
+      throw new TypeError("Derived constructors may only return object or undefined");
     }
 
     return babelHelpers.assertThisInitialized(self);
