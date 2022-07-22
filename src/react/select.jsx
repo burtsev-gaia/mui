@@ -279,7 +279,7 @@ class Menu extends React.Component {
     onClose: null
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     let optionEls = this.availOptionEls,
         m = optionEls.length,
         selectedPos = null,
