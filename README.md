@@ -1,3 +1,7 @@
+# IMPORTANT
+The sole purpose of this fork is to add the ability to migrate an application using muicss to React 18. 
+Because of the old build system, it was difficult to use it. After libraries update, it produced a non-working code. So fixes are applied directly to the builded code. At this point, only Selector component is patched.
+
 # Material Design CSS Framework
 
 [![MUI](https://www.muicss.com/static/favicons/icon-192x192.png)](https://www.muicss.com)
