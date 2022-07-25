@@ -63,15 +63,15 @@
     "gulp-rtlcss": "1.4.1",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-uglify": "^3.0.2",
-    "jsdom": "^16.2.2",
+    "jsdom": "^20.0.0",
     "jsdom-global": "^3.0.2",
     "jshint": "^2.13.5",
     "merge-stream": "^2.0.0",
-    "mocha": "^7.2.0",
+    "mocha": "^10.0.0",
     "react": "^18.2.0",
     "react-addons-shallow-compare": "^15.6.3",
     "react-dom": "^18.2.0",
-    "react-test-renderer": "^16.13.1",
+    "react-test-renderer": "^18.2.0",
     "reactify": "^1.1.1",
     "readable-wrap": "^1.0.0",
     "streamqueue": "^1.1.2",
@@ -96,5 +96,8 @@
       "./test/before-compilers.js",
       "@babel/register"
     ]
+  },
+  "dependencies": {
+    "http-server": "^14.1.1"
   }
 }
