@@ -12,23 +12,15 @@ exports.default = void 0;
 
 var _react = babelHelpers.interopRequireDefault(require("react"));
 
-var formlib = _interopRequireWildcard(require("../js/lib/forms"));
-
-var jqLite = _interopRequireWildcard(require("../js/lib/jqLite"));
-
-var util = _interopRequireWildcard(require("../js/lib/util"));
+var formlib = babelHelpers.interopRequireWildcard(require("../js/lib/forms"));
+var jqLite = babelHelpers.interopRequireWildcard(require("../js/lib/jqLite"));
+var util = babelHelpers.interopRequireWildcard(require("../js/lib/util"));
 
 var _helpers = require("./_helpers");
 
-var _excluded = ["children", "className", "style", "label", "defaultValue", "readOnly", "disabled", "useDefault", "name", "placeholder"];
-
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || babelHelpers.typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = babelHelpers.getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = babelHelpers.getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return babelHelpers.possibleConstructorReturn(this, result); }; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 /**
  * Select constructor
@@ -72,13 +64,6 @@ var Select = /*#__PURE__*/function (_React$Component) {
       this.controlEl._muiSelect = true;
     }
   }, {
-    key: "UNSAFE_componentWillReceiveProps",
-    value: function UNSAFE_componentWillReceiveProps(nextProps) {
-      this.setState({
-        value: nextProps.value
-      });
-    }
-  }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
       // ensure that doc event listners have been removed
@@ -114,7 +99,7 @@ var Select = /*#__PURE__*/function (_React$Component) {
 
       this.wrapperElRef.focus(); // open custom menu
 
-      this.showMenu();
+      this.showMenu(ev);
     }
   }, {
     key: "onOuterKeyDown",
@@ -132,15 +117,16 @@ var Select = /*#__PURE__*/function (_React$Component) {
           // prevent default browser action
           ev.preventDefault(); // open custom menu
 
-          this.showMenu();
+          this.showMenu(ev);
         }
       }
     }
   }, {
     key: "showMenu",
-    value: function showMenu() {
+    value: function showMenu(ev) {
       // check useDefault flag
       if (this.props.useDefault) return; // add event listeners
+      ev.preventDefault();
 
       jqLite.on(window, 'resize', this.hideMenuCB);
       jqLite.on(document, 'click', this.hideMenuCB); // re-draw
@@ -212,7 +198,7 @@ var Select = /*#__PURE__*/function (_React$Component) {
           useDefault = _this$props.useDefault,
           name = _this$props.name,
           placeholder = _this$props.placeholder,
-          reactProps = babelHelpers.objectWithoutProperties(_this$props, _excluded); // build value arguments
+          reactProps = babelHelpers.objectWithoutProperties(_this$props, ["children", "className", "style", "label", "defaultValue", "readOnly", "disabled", "useDefault", "name", "placeholder"]); // build value arguments
 
       if (this.props.value !== undefined) valueArgs.value = value; // controlled
 
@@ -253,6 +239,17 @@ var Select = /*#__PURE__*/function (_React$Component) {
       }), placeholderElem, children), /*#__PURE__*/_react.default.createElement("label", {
         tabIndex: "-1"
       }, label), menuElem);
+    }
+  }], [{
+    key: "getDerivedStateFromProps",
+    value: function getDerivedStateFromProps(nextProps, state) {
+      if (state.value !== nextProps.value) {
+        return {
+          value: nextProps.value
+        };
+      }
+
+      return null;
     }
   }]);
   return Select;
@@ -303,29 +300,26 @@ var Menu = /*#__PURE__*/function (_React$Component2) {
       if (!el.disabled && !el.hidden) _this3.availOptionEls.push(el);
     }
 
+    var availOptionEls = _this3.availOptionEls,
+        m = optionEls.length,
+        selectedPos = null,
+        j; // get current selected position
+
+    for (j = m - 1; j > -1; j--) {
+      if (availOptionEls[j].selected) selectedPos = j;
+    }
+
+    if (selectedPos !== null) {
+      _this3.setState({
+        origIndex: selectedPos,
+        currentIndex: selectedPos
+      });
+    }
+
     return _this3;
   }
 
   babelHelpers.createClass(Menu, [{
-    key: "UNSAFE_componentWillMount",
-    value: function UNSAFE_componentWillMount() {
-      var optionEls = this.availOptionEls,
-          m = optionEls.length,
-          selectedPos = null,
-          i; // get current selected position
-
-      for (i = m - 1; i > -1; i--) {
-        if (optionEls[i].selected) selectedPos = i;
-      }
-
-      if (selectedPos !== null) {
-        this.setState({
-          origIndex: selectedPos,
-          currentIndex: selectedPos
-        });
-      }
-    }
-  }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       // prevent scrolling

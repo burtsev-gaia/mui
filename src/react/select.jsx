@@ -63,8 +63,13 @@ class Select extends React.Component {
     this.controlEl._muiSelect = true;
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    this.setState({ value: nextProps.value });
+  static getDerivedStateFromProps(nextProps, state) {
+    if(state.value !== nextProps.value ){
+      return {
+        value: nextProps.value
+      }
+    }
+    return null
   }
 
   componentWillUnmount() {
@@ -265,6 +270,21 @@ class Menu extends React.Component {
       el = optionEls[i];
       if (!el.disabled && !el.hidden) this.availOptionEls.push(el);
     }
+
+    let availOptionEls = this.availOptionEls,
+        m = optionEls.length,
+        selectedPos = null,
+        j;
+
+    // get current selected position
+    for (j = m - 1; j > -1; j--) if (availOptionEls[j].selected) selectedPos = j;
+
+    if (selectedPos !== null) {
+      this.state = {
+        origIndex: selectedPos,
+        currentIndex: selectedPos,
+      }
+    }
   }
 
   state = {
@@ -278,20 +298,6 @@ class Menu extends React.Component {
     onChange: null,
     onClose: null
   };
-
-  UNSAFE_componentWillMount() {
-    let optionEls = this.availOptionEls,
-        m = optionEls.length,
-        selectedPos = null,
-        i;
-
-    // get current selected position
-    for (i = m - 1; i > -1; i--) if (optionEls[i].selected) selectedPos = i;
-
-    if (selectedPos !== null) {
-      this.setState({ origIndex: selectedPos, currentIndex: selectedPos });
-    }
-  }
 
   componentDidMount() {
     // prevent scrolling
