@@ -310,10 +310,10 @@ var Menu = /*#__PURE__*/function (_React$Component2) {
     }
 
     if (selectedPos !== null) {
-      _this3.setState({
+      _this3.state = {
         origIndex: selectedPos,
         currentIndex: selectedPos
-      });
+      };
     }
 
     return _this3;
