@@ -12,11 +12,9 @@ exports.default = void 0;
 
 var _react = babelHelpers.interopRequireDefault(require("react"));
 
-var _excluded = ["children", "direction"];
-
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = babelHelpers.getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = babelHelpers.getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return babelHelpers.possibleConstructorReturn(this, result); }; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 var caretClass = 'mui-caret';
 /**
@@ -41,7 +39,7 @@ var Caret = /*#__PURE__*/function (_React$Component) {
       var _this$props = this.props,
           children = _this$props.children,
           direction = _this$props.direction,
-          reactProps = babelHelpers.objectWithoutProperties(_this$props, _excluded); // add direction class
+          reactProps = babelHelpers.objectWithoutProperties(_this$props, ["children", "direction"]); // add direction class
 
       if (direction) cls += ' ' + caretClass + '--' + direction;
       return /*#__PURE__*/_react.default.createElement("span", babelHelpers.extends({}, reactProps, {

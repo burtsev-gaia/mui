@@ -14,15 +14,13 @@ var _react = babelHelpers.interopRequireDefault(require("react"));
 
 var _textfieldHelpers = require("./_textfieldHelpers");
 
-var _excluded = ["inputRef"];
-
 /**
  * Input constructor
  * @class
  */
 var Input = (0, _textfieldHelpers.textfieldWrapper)(function (props) {
   var inputRef = props.inputRef,
-      rest = babelHelpers.objectWithoutProperties(props, _excluded);
+      rest = babelHelpers.objectWithoutProperties(props, ["inputRef"]);
   return /*#__PURE__*/_react.default.createElement("input", babelHelpers.extends({
     ref: inputRef
   }, rest));
