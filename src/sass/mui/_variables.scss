@@ -2,6 +2,8 @@
 // Global Settings
 // ============================================================================
 
+@use "sass:math";
+
 $mui-include-globals: true !default;
 $mui-use-rem:         false !default;
 
@@ -9,8 +11,8 @@ $mui-use-rem:         false !default;
   $x: $px;
 
   @if $mui-use-rem == true {
-    $x: ($px / 16px) * 1rem;
-    $x: round(1000 * $x) / 1000;
+    $x: math.div($px, 16px) * 1rem;
+    $x: round(1000 * $x) * 0.001;
   }
   
   @return $x;
@@ -198,7 +200,7 @@ $mui-label-font-color:            mui-color('black-alpha-54') !default;
 $mui-label-margin-bottom:         mui-rem(3px) !default;
 
 $mui-form-legend-font-size:       $mui-base-font-size * 1.5 !default;
-$mui-form-legend-margin-bottom:   $mui-form-legend-font-size / 2 !default;
+$mui-form-legend-margin-bottom:   $mui-form-legend-font-size * 0.5 !default;
 $mui-form-legend-font-color:      $mui-base-font-color !default;
 $mui-form-group-margin-bottom:    mui-rem(20px) !default;
 
@@ -319,7 +321,7 @@ $mui-base-line-height-computed: $mui-base-font-size * $mui-base-line-height;
 @if unit($mui-base-line-height-computed) == 'px' {
   $mui-base-line-height-computed: floor($mui-base-line-height-computed);
 } @else {
-  $mui-base-line-height-computed: round(1000 * $mui-base-line-height-computed) / 1000;
+  $mui-base-line-height-computed: round(1000 * $mui-base-line-height-computed) * 0.001;
 }
 
 $mui-screen-xs-max: ($mui-screen-sm-min - 1);

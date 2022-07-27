@@ -3,11 +3,13 @@
  */
 
 // row
+@use "sass:math";
+
 .mui-row {
   @include mui-clearfix();
 
-  margin-left: ($mui-grid-gutter-width / -2);
-  margin-right: ($mui-grid-gutter-width / -2);
+  margin-left: math.div($mui-grid-gutter-width, -2);
+  margin-right: math.div($mui-grid-gutter-width, -2);
 }
 
 // columns
